@@ -19,8 +19,9 @@ class TodoController extends Controller
         "description" => "nullable"
     ]);
 
-    Todo::create($attr);
-    return redirect()->route("/");
+    $todo = Todo::create([$attr]);
+    $todo->save();
+    return redirect('/');
     }
 
     public function update(Todo $todo)

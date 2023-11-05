@@ -1,13 +1,31 @@
-FROM php:8.0-fpm-alpine
+# Use an official PHP runtime as a parent image
+FROM php:8.0-fpm
 
-ADD ./php/www.conf /usr/local/etc/php-fpm.d/www.conf
+# Set the working directory in the container
+WORKDIR /var/www/html
 
-RUN addgroup -g 1000 laravel && adduser -G laravel -g laravel -s /bin/sh -D laravel
+# Install system dependencies
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev zip unzip libzip-dev
 
-RUN mkdir -p /var/www/html
+# Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install gd pdo pdo_mysql zip
 
-ADD ./src/ /var/www/html
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN docker-php-ext-install pdo pdo_mysql
+# Copy Laravel application files to the container
+COPY . .
 
-RUN chown -R laravel:laravel /var/www/html
+# Install Laravel dependencies
+RUN composer install
+
+# Set permissions for Laravel
+RUN chown -R www-data:www-data /var/www/html
+RUN chmod -R 755 /var/www/html/storage
+
+# Expose the port that your Laravel application runs on
+EXPOSE 9000
+
+# Start the PHP-FPM server
+CMD ["php-fpm"]

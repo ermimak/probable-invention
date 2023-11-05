@@ -40,10 +40,10 @@ services:
         volumes:
             - ./mysql:/var/lib/mysql
         environment:
-            MYSQL_DATABASE: laraveldb
-            MYSQL_USER: laravel
-            MYSQL_PASSWORD: secret
-            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_DATABASE: todo
+            MYSQL_USER: root
+            MYSQL_PASSWORD:
+            MYSQL_ROOT_PASSWORD:
         networks:
             - laravel
 

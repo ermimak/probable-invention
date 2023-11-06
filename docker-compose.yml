@@ -5,7 +5,18 @@ networks:
         name: laravel
 
 services:
-
+    laravel-app:
+        image: ermiasdev/todo:latest  # Use your Docker image
+        container_name: laravel-app
+        ports:
+        - "80:80"  # Map host port 80 to container port 80
+        environment:
+        - DB_HOST=mysql  # Match this to your Kubernetes Service name for MySQL
+        - DB_DATABASE=todo
+        - DB_USERNAME=root
+        - DB_PASSWORD=""
+        volumes:
+        - ./src:/var/www/html
     nginx:
         build:
             context: .

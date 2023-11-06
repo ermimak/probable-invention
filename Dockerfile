@@ -1,5 +1,5 @@
 # Use an official PHP runtime as a parent image
-FROM php:8.0-fpm
+FROM php:8.1-fpm
 
 # Set the working directory in the container
 WORKDIR /var/www/html
@@ -13,6 +13,7 @@ RUN docker-php-ext-install gd pdo pdo_mysql zip
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # Copy Laravel application files to the container
 COPY . .
@@ -21,8 +22,8 @@ COPY . .
 RUN composer install
 
 # Set permissions for Laravel
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 755 /var/www/html/storage
+# RUN chown -R www-data:www-data /var/www/html
+# RUN chmod -R 755 /var/www/html/storage
 
 # Expose the port that your Laravel application runs on
 EXPOSE 9000

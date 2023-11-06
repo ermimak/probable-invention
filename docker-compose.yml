@@ -9,7 +9,7 @@ services:
     nginx:
         build:
             context: .
-            dockerfile: nginx.dockerfile
+            dockerfile: Dockerfile
         depends_on:
             - php
             - mysql
@@ -25,7 +25,7 @@ services:
     php:
         build:
             context: .
-            dockerfile: php.dockerfile
+            dockerfile: Dockerfile  # Use the Dockerfile from your Laravel project directory
         container_name: php
         volumes:
             - ./src:/var/www/html
@@ -59,7 +59,7 @@ services:
     artisan:
         build:
             context: .
-            dockerfile: php.dockerfile
+            dockerfile: Dockerfile  # Use the Dockerfile from your Laravel project directory
         container_name: artisan
         volumes:
             - ./src:/var/www/html

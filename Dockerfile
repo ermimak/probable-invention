@@ -18,7 +18,6 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 # Copy Laravel application files to the container
 COPY . .
 
-# Install Laravel dependencies
 RUN composer install
 
 # Set permissions for Laravel

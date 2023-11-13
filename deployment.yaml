@@ -5,7 +5,7 @@ metadata:
   labels:
     app: laravel-app
 spec:
-  replicas: 3  # Set the number of desired replicas
+  replicas: 3  
   selector:
     matchLabels:
       app: laravel-app
@@ -16,15 +16,15 @@ spec:
     spec:
       containers:
         - name: laravel-app
-          image: ermiasdev/todo:latest  # Use your Docker image
+          image: ermiasdev/todo:latest  
           ports:
-            - containerPort: 80  # Port your Laravel app listens on
+            - containerPort: 80  
           env:
             - name: DB_HOST
-              value: mysql  # MySQL hostname or IP
+              value: mysql  
             - name: DB_DATABASE
-              value: todo  # Database name
+              value: todo  
             - name: DB_USERNAME
-              value: root  # Database username
+              value: root  
             - name: DB_PASSWORD
-              value:   # Database password
+              value:   

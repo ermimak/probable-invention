@@ -21,7 +21,7 @@ COPY . .
 # Install Laravel dependencies
 RUN composer install
 
-# Set permissions for Laravel
+# Set permissions for Laravel app
 # RUN chown -R www-data:www-data /var/www/html
 # RUN chmod -R 755 /var/www/html/storage
 

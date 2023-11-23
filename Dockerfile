@@ -20,8 +20,10 @@ COPY . .
 
 RUN composer install
 
-# RUN chown -R www-data:www-data /var/www/html
-# RUN chmod -R 755 /var/www/html/storage
+COPY laravel.ini /usr/local/etc/php/conf.d/laravel.ini
+
+RUN chown -R www-data:www-data /var/www/html
+RUN chmod -R 755 /var/www/html/storage
 
 # Expose the port that your Laravel application runs on
 EXPOSE 9000

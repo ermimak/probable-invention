@@ -6,15 +6,15 @@ networks:
 
 services:
     laravel-app:
-        image: ermiasdev/todo:latest  
+        image: ermiasdev/todo:latest
         container_name: laravel-app
         ports:
-        - "80:80"  
+        - "80:80"
         environment:
-        - DB_HOST=mysql  
+        - DB_HOST=mysql
         - DB_DATABASE=todo
         - DB_USERNAME=root
-        - DB_PASSWORD=""
+        - DB_PASSWORD= ${DB_PASSWORD}
         volumes:
         - ./src:/var/www/html
     nginx:
@@ -36,7 +36,7 @@ services:
     php:
         build:
             context: .
-            dockerfile: Dockerfile  
+            dockerfile: Dockerfile
         container_name: php
         volumes:
             - ./src:/var/www/html
@@ -53,10 +53,15 @@ services:
         environment:
             MYSQL_DATABASE: todo
             MYSQL_USER: root
-            MYSQL_PASSWORD:
-            MYSQL_ROOT_PASSWORD:
+            MYSQL_PASSWORD: ${DB_PASSWORD}
         networks:
             - laravel
+    myadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: ${APP_NAME}_phpmyadmin
+        ports:
+            - 4403:7744
+
 
     composer:
         image: composer:latest
@@ -70,7 +75,7 @@ services:
     artisan:
         build:
             context: .
-            dockerfile: Dockerfile  
+            dockerfile: Dockerfile
         container_name: artisan
         volumes:
             - ./src:/var/www/html
